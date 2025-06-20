@@ -110,11 +110,11 @@ class MapaTkinter(tk.Tk):
         self.btn_dist = tk.Button(botoes_frame, text="Exibir Distâncias", command=self.toggle_distancias, **self.btn_style_normal)
         self.btn_dist.pack(fill=tk.X, pady=5, padx=10)
         
-        self.btn_cores = tk.Button(botoes_frame, text="Cores das Ruas", command=self.toggle_cores_ruas, **self.btn_style_normal)
+        self.btn_cores = tk.Button(botoes_frame, text="Identificar Ruas", command=self.toggle_cores_ruas, **self.btn_style_normal)
         self.btn_cores.pack(fill=tk.X, pady=5, padx=10)
 
         # --- Widgets do painel de ações ---
-        self.btn_limpar = tk.Button(actions_frame, text="🧹", command=self.limpar_selecao, **self.btn_style_normal)
+        self.btn_limpar = tk.Button(actions_frame, text="Limpar Seleção", command=self.limpar_selecao, **self.btn_style_normal)
         self.btn_limpar.grid(row=0, column=0, sticky="nsew", padx=(0, 5))
 
         # Botão de rota no meio com borda branca
@@ -125,7 +125,7 @@ class MapaTkinter(tk.Tk):
                                  **self.btn_style_normal)
         self.btn_rota.pack(fill=tk.BOTH, expand=True)
         
-        self.btn_pontos = tk.Button(actions_frame, text="⏺️", command=self.toggle_pontos, **self.btn_style_normal)
+        self.btn_pontos = tk.Button(actions_frame, text="Ocultar Vértices", command=self.toggle_pontos, **self.btn_style_normal)
         self.btn_pontos.grid(row=0, column=2, sticky="nsew", padx=(5, 0))
         
         # Painel de histórico à direita
@@ -782,12 +782,12 @@ class MapaTkinter(tk.Tk):
         self.caminho = None
         self.selecionando = 'origem'
         self.mostrar_pontos = True
-        self.btn_pontos.config(text="Ocultar Pontos")
+        self.btn_pontos.config(text="Ocultar Vértices")
         self.desenhar_grafo()
 
     def toggle_pontos(self):
         self.mostrar_pontos = not self.mostrar_pontos
-        self.btn_pontos.config(text="Mostrar Pontos" if not self.mostrar_pontos else "Ocultar Pontos")
+        self.btn_pontos.config(text="Mostrar Vértices" if not self.mostrar_pontos else "Ocultar Vértices")
         self.desenhar_grafo()
 
     def toggle_distancias(self):
