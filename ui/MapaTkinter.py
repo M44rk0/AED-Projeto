@@ -21,14 +21,14 @@ from ui.Sidebar import Sidebar
 from ui.ActionPanel import ActionPanel
 from ui.ZoomPanel import ZoomPanel
 from ui.HistoryPanel import HistoryPanel
-from ui.TooltipManager import TooltipManager
+from managers.TooltipManager import TooltipManager
 from core.SelectionManager import SelectionManager
 from managers.ImageManager import ImageManager
-from ui.EventManager import EventManager
+from managers.EventManager import EventManager
 from core.GraphOperations import GraphOperations
-from ui.ViewManager import ViewManager
-from ui.ToggleManager import ToggleManager
-from ui.UIManager import UIManager
+from managers.ViewManager import ViewManager
+from managers.ToggleManager import ToggleManager
+from managers.UIManager import UIManager
 
 # ================================================
 # Classe principal MapaTkinter

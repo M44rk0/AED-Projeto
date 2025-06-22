@@ -13,7 +13,7 @@ Aplicativo desktop para visualização e manipulação de grafos, com suporte a 
 ```bash
 # Clone o repositório
 git clone <url-do-repositorio>
-cd CursorAED
+cd MapaAED
 
 # Instale as dependências
 pip install -r requirements.txt
@@ -25,7 +25,7 @@ python main.py
 ## 📁 Estrutura do Projeto
 
 ```
-CursorAED/
+MapaAED/
 ├── main.py                 # Ponto de entrada
 ├── core/                   # Lógica principal
 │   ├── GraphManager.py     # Gerenciamento de grafos
@@ -39,10 +39,13 @@ CursorAED/
 │   ├── ActionPanel.py      # Painel de ações
 │   ├── ZoomPanel.py        # Controles de zoom
 │   ├── HistoryPanel.py     # Painel de histórico
+│   └── ZoomPanTool.py      # Ferramentas de zoom e pan
+├── managers/               # Gerenciadores
 │   ├── EventManager.py     # Gerenciamento de eventos
 │   ├── UIManager.py        # Gerenciamento de UI
-│   └── ViewManager.py      # Gerenciamento de visualização
-├── managers/               # Gerenciadores
+│   ├── ViewManager.py      # Gerenciamento de visualização
+│   ├── ToggleManager.py    # Gerenciamento de toggles
+│   ├── TooltipManager.py   # Gerenciamento de tooltips
 │   ├── ImageManager.py     # Gerenciamento de imagens
 │   └── HistoryManager.py   # Gerenciamento de histórico
 └── assets/                 # Recursos
@@ -59,7 +62,7 @@ CursorAED/
 ### 🎨 Visualização
 - **Zoom e Pan** - Navegação intuitiva
 - **Cores Personalizadas** - Diferenciação de tipos de rua
-- **Exibição de Distâncias** - Pesos das arestas
+- **Exibição de Distâncias** - Pesos das arestas (apenas para grafos criados manualmente)
 
 ### 🧮 Algoritmo de Dijkstra
 - **Cálculo de Rota** - Caminho mais curto entre dois pontos
@@ -69,8 +72,9 @@ CursorAED/
 ### 🖥️ Interface
 - **Design Moderno** - Interface responsiva
 - **Tooltips** - Dicas contextuais
-- **Captura de Imagens** - Salvamento e cópia
+- **Captura de Imagens** - Salvamento e cópia com títulos simplificados
 - **Modo de Edição** - Criação de grafos
+- **Controles Inteligentes** - Botões habilitados/desabilitados conforme contexto
 
 ## 📚 Guia de Uso
 
@@ -78,6 +82,7 @@ CursorAED/
 - Clique em "📂 Importar OSM"
 - Selecione um arquivo .osm
 - O mapa será carregado automaticamente
+- **Nota**: O botão "Exibir Distâncias" fica desabilitado para grafos OSM
 
 ### 2. Navegar no Mapa
 - **Zoom**: Scroll do mouse
@@ -94,10 +99,23 @@ CursorAED/
 - **Adicionar vértice**: Clique em área vazia
 - **Adicionar aresta**: Clique em dois vértices consecutivos
 - **Remover**: Clique direito no elemento
+- **Gerar arestas**: Botão habilitado apenas quando há 2+ vértices
 
 ### 5. Capturar Imagem
 - Clique em "📋 Copiar Imagem" para copiar para clipboard
 - Clique em "💾 Salvar Imagem" para salvar arquivo
+- **Títulos**: As capturas são salvas como "Captura 1.", "Captura 2.", etc.
+
+## 🔧 Controles Inteligentes
+
+### Botões Contextuais
+- **"Exibir Distâncias"**: Habilitado apenas para grafos criados manualmente
+- **"Gerar Arestas"**: Habilitado apenas quando há 2 ou mais vértices
+- **Botões de Edição**: Habilitados apenas no modo de edição
+
+### Detecção Automática
+- **Grafos OSM**: Detectados automaticamente por atributos específicos
+- **Grafos Manuais**: Criados pelo usuário no modo de edição
 
 ## 🛠️ Tecnologias
 
