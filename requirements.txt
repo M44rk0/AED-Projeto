@@ -1,9 +1,11 @@
-networkx==3.2.1
-matplotlib==3.8.2
-PyQt5==5.15.9
-PyQtWebEngine==5.15.9
-numpy==1.26.3
+# Dependências principais
 osmnx==1.8.1
-geopandas==0.14.1
-folium==0.15.1
-scipy==1.12.0 
+networkx==3.2.1
+Pillow==10.2.0
+
+# Dependências do osmnx (instaladas automaticamente)
+# matplotlib==3.8.2
+# numpy==1.26.3
+# geopandas==0.14.1
+# folium==0.15.1
+# scipy==1.12.0

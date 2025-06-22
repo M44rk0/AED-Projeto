@@ -1,0 +1,1 @@
+# Módulo core - Lógica e algoritmos principais 
