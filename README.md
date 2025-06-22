@@ -82,46 +82,111 @@ MapaAED/
 
 ## 📚 Guia de Uso
 
-### 1. Importar Mapa OSM
-- Clique em "📂 Importar OSM"
-- Selecione um arquivo .osm
-- O mapa será carregado automaticamente
-- **Nota**: O botão "Exibir Distâncias" fica desabilitado para grafos OSM
+### 🚀 Primeiros Passos
 
-### 2. Navegar no Mapa
-- **Zoom**: Scroll do mouse
-- **Pan**: Ctrl+clique e arrastar
-- **Reset**: Botão de reset no painel de zoom
-- **Legenda**: Aparece automaticamente quando "Identificar Vias" está ativo
+#### 1. Importar Mapa OSM
+1. **Clique** no botão "📂 Importar OSM"
+2. **Selecione** um arquivo .osm no seu computador
+3. **Aguarde** o carregamento do mapa
+4. **Navegue** usando zoom (scroll) e pan (Ctrl+clique e arrastar)
 
-### 3. Calcular Rota
-- Clique em dois vértices para selecionar origem e destino
-- Clique em "🛣️ Calcular Rota"
-- O caminho mais curto será exibido em vermelho
+**💡 Dica**: Arquivos OSM podem ser exportados do site oficial do OpenStreetMap.
 
-### 4. Editar Grafo
-- Clique em "✏️ Criar Grafo" para entrar no modo de edição
-- **Adicionar vértice**: Clique em área vazia
-- **Adicionar aresta**: Clique em dois vértices consecutivos
-- **Remover**: Clique direito no elemento
-- **Gerar arestas**: Botão habilitado apenas quando há 2+ vértices
+#### 2. Criar Grafo Manual
+1. **Clique** no botão "✏️ Criar Grafo" na barra lateral
+2. **Observe** que o botão fica verde e a borda do canvas muda para verde, o que significa que o modo de edição está ativado
+3. **Clique** em áreas vazias do canvas para adicionar vértices
+4. **Clique** em dois vértices consecutivos para criar arestas
+6. **Clique direito** em vértices ou arestas para removê-los
+7. **Gerar Vértices Aleatórios**: Use o botão "🎯 Gerar Vértices"
+8. **Gerar Arestas Aleatórias**: Use o botão "🎲 Gerar Arestas" (requer 2+ vértices)
 
-### 5. Capturar Imagem
-- Clique em "📋 Copiar Imagem" para copiar para clipboard
-- Clique em "💾 Salvar Imagem" para salvar arquivo
-- **Títulos**: As capturas são salvas como "Captura 1.", "Captura 2.", etc.
+### 🧭 Navegação e Visualização
 
-## 🔧 Controles Inteligentes
+#### Controles de Navegação
+- **🔍 Zoom In**: Scroll do mouse para cima ou botão "🔍+"
+- **🔍 Zoom Out**: Scroll do mouse para baixo ou botão "🔍-"
+- **🔍 Reset Zoom**: Botão "🔍" para voltar ao zoom padrão
+- **🖱️ Pan**: Ctrl+clique e arrastar para mover a visualização
 
-### Botões Contextuais
-- **"Exibir Distâncias"**: Habilitado apenas para grafos criados manualmente com até 150 vértices
-- **"Gerar Arestas"**: Habilitado apenas quando há 2 ou mais vértices
-- **"Identificar Vias"**: Muda de cor quando ativo (mesma cor do botão "Criar Grafo")
-- **Botões de Edição**: Habilitados apenas no modo de edição
+#### Opções de Visualização
+- **Exibir Distâncias**: Mostra pesos das arestas (apenas grafos manuais com ≤150 vértices)
+- **Identificar Vias**: Diferencia ruas por tipo (apenas grafos OSM)
+  - 🔵 Azul: Mão única
+  - 🟠 Laranja: Mão dupla
+- **Ocultar/Mostrar Vértices**: Controla a exibição dos pontos no mapa
 
-### Detecção Automática
-- **Grafos OSM**: Detectados automaticamente por atributos específicos
-- **Grafos Manuais**: Criados pelo usuário no modo de edição
+### 🛣️ Calculando Rotas
+
+#### Passo a Passo
+1. **Certifique-se** de que há um grafo carregado (OSM ou manual)
+2. **Clique** em um vértice para selecionar a origem (aparece em verde)
+3. **Clique** em outro vértice para selecionar o destino (aparece em vermelho)
+4. **Clique** no botão "🛣️ Calcular Rota" no painel inferior
+5. **Observe** o caminho mais curto exibido em vermelho
+6. **Verifique** as estatísticas no painel de histórico
+
+#### Informações da Rota
+- **Distância Total**: Em metros
+- **Tempo de Execução**: Em milissegundos
+- **Nós Explorados**: Quantidade de vértices visitados
+- **Caminho**: Lista completa de vértices da rota
+
+### 📸 Capturando Imagens
+
+#### Copiar para Clipboard
+1. **Configure** a visualização desejada (zoom, cores, etc.)
+2. **Clique** no botão "📋 Copiar Imagem"
+3. **Cole** em qualquer aplicativo (Ctrl+V)
+
+#### Salvar Arquivo
+1. **Configure** a visualização desejada
+2. **Clique** no botão "💾 Salvar Imagem"
+3. **Escolha** o local e nome do arquivo
+4. **Confirme** o salvamento
+
+**📁 Localização**: As imagens são salvas em `assets/capturas/` com títulos automáticos ("Captura 1.", "Captura 2.", etc.)
+
+### 🗑️ Gerenciando Grafos
+
+#### Apagar Grafo Atual
+1. **Clique** no botão "🗑️ Apagar Grafo"
+2. **Confirme** a ação
+3. **Observe** que todos os dados são removidos
+
+#### Limpar Seleção
+1. **Clique** no botão "Limpar Seleção" no painel inferior
+2. **Observe** que origem e destino são desmarcados
+3. **O caminho** calculado é removido
+
+### 📊 Histórico e Estatísticas
+
+#### Painel de Histórico
+- **Localização**: Painel lateral direito
+- **Rotas**: Lista de todas as rotas calculadas na sessão
+- **Capturas**: Lista de todas as imagens salvas
+- **Refazer Rota**: Clique no botão "🔄" para recalcular uma rota anterior
+
+#### Informações Exibidas
+- **Número da Rota**: Ordem cronológica
+- **Origem e Destino**: IDs dos vértices
+- **Distância**: Em metros com 2 casas decimais
+- **Tempo**: Em milissegundos com 2 casas decimais
+- **Nós Explorados**: Quantidade de vértices visitados
+
+#### Otimizações de Performance
+- **Zoom Fluido**: Renderização otimizada durante navegação
+- **Limite de Vértices**: 150 vértices para exibir distâncias
+- **Cache Inteligente**: Reutilização de imagens quando possível
+- **Supersample Adaptativo**: Qualidade ajustada conforme necessidade
+
+### ⚠️ Limitações e Considerações
+
+#### Limitações Técnicas
+- **Python 3.12**: Versão obrigatória para compatibilidade
+- **Arquivos OSM**: Apenas arquivos .osm são suportados
+- **Tamanho de Grafo**: Performance pode diminuir com grafos muito grandes
+- **Memória**: Grafos muito complexos podem consumir muita memória
 
 ## 🛠️ Tecnologias
 
