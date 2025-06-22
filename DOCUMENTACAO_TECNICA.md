@@ -1,4 +1,4 @@
-# 📋 DOCUMENTAÇÃO TÉCNICA - NAVEGADOR OSM
+# DOCUMENTAÇÃO TÉCNICA - NAVEGADOR OSM
 ## Sistema de Visualização e Manipulação de Grafos
 
 ---
@@ -113,8 +113,6 @@ O sistema segue uma arquitetura **modular baseada em componentes**:
 
 ---
 ## 3. IMPLEMENTAÇÃO
-
-
 
 ### 3.1 Tecnologias Utilizadas
 - **Python 3.9+**: Linguagem principal

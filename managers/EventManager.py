@@ -1,4 +1,4 @@
-from tkinter import simpledialog
+from tkinter import simpledialog, messagebox
 
 class EventManager:
     def __init__(self, main_app):
@@ -95,11 +95,39 @@ class EventManager:
                     self.main_app.selection_manager.criando_aresta = True
                 else:
                     if closest_node != self.main_app.selection_manager.vertice_selecionado:
-                        peso = simpledialog.askfloat("Peso da Aresta", 
-                                                  "Digite o peso (distância) da aresta:",
-                                                  minvalue=0.0)
-                        if peso is not None:
+                        # Usar uma abordagem mais robusta para obter o peso
+                        peso_valido = False
+                        peso = 0.0
+                        
+                        while not peso_valido:
+                            try:
+                                peso_input = simpledialog.askstring("Peso da Aresta", 
+                                                                  "Digite o peso (distância) da aresta:\n(Deixe vazio para usar 0):")
+                                
+                                # Se o usuário cancelou, sair do loop
+                                if peso_input is None:
+                                    break
+                                
+                                # Se o campo está vazio, usar 0
+                                if peso_input.strip() == "":
+                                    peso = 0.0
+                                    peso_valido = True
+                                else:
+                                    # Tentar converter para float
+                                    peso = float(peso_input)
+                                    if peso < 0:
+                                        messagebox.showerror("Erro", "O peso deve ser um número não negativo!")
+                                        continue
+                                    peso_valido = True
+                                    
+                            except ValueError:
+                                messagebox.showerror("Erro", "Por favor, digite um número válido!")
+                                continue
+                        
+                        # Se chegou até aqui, criar a aresta
+                        if peso_valido:
                             self.main_app.graph_manager.adicionar_aresta(self.main_app.selection_manager.vertice_selecionado, closest_node, peso)
+                    
                     self.main_app.selection_manager.vertice_selecionado = None
                     self.main_app.selection_manager.criando_aresta = False
             else:
