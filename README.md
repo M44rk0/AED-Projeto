@@ -5,7 +5,7 @@ Aplicativo desktop para visualização e manipulação de grafos, com suporte a 
 ## 🚀 Como Executar
 
 ### Pré-requisitos
-- **Python 3.7+**
+- **Python 3.12**
 - **Windows, macOS ou Linux**
 - **4GB RAM**
 
@@ -21,6 +21,10 @@ pip install -r requirements.txt
 # Execute o aplicativo
 python main.py
 ```
+
+**⚠️ Importante**: Devido a compatibilidade com a biblioteca OSMNX, este projeto foi desenvolvido especificamente para Python 3.12 e pode não funcionar corretamente em outras versões.
+
+**💡 Dica**: Se você tem múltiplas versões do Python instaladas, use `py -3.12 main.py` para garantir que a versão correta seja executada.
 
 ## 📁 Estrutura do Projeto
 
@@ -61,8 +65,8 @@ MapaAED/
 
 ### 🎨 Visualização
 - **Zoom e Pan** - Navegação intuitiva
-- **Cores Personalizadas** - Diferenciação de tipos de rua
-- **Exibição de Distâncias** - Pesos das arestas (apenas para grafos criados manualmente)
+- **Cores Personalizadas** - Diferenciação de tipos de rua com legenda explicativa
+- **Exibição de Distâncias** - Pesos das arestas (apenas para grafos criados manualmente com até 150 vértices)
 
 ### 🧮 Algoritmo de Dijkstra
 - **Cálculo de Rota** - Caminho mais curto entre dois pontos
@@ -88,6 +92,7 @@ MapaAED/
 - **Zoom**: Scroll do mouse
 - **Pan**: Ctrl+clique e arrastar
 - **Reset**: Botão de reset no painel de zoom
+- **Legenda**: Aparece automaticamente quando "Identificar Vias" está ativo
 
 ### 3. Calcular Rota
 - Clique em dois vértices para selecionar origem e destino
@@ -109,8 +114,9 @@ MapaAED/
 ## 🔧 Controles Inteligentes
 
 ### Botões Contextuais
-- **"Exibir Distâncias"**: Habilitado apenas para grafos criados manualmente
+- **"Exibir Distâncias"**: Habilitado apenas para grafos criados manualmente com até 150 vértices
 - **"Gerar Arestas"**: Habilitado apenas quando há 2 ou mais vértices
+- **"Identificar Vias"**: Muda de cor quando ativo (mesma cor do botão "Criar Grafo")
 - **Botões de Edição**: Habilitados apenas no modo de edição
 
 ### Detecção Automática
@@ -119,7 +125,7 @@ MapaAED/
 
 ## 🛠️ Tecnologias
 
-- **Python 3.9+** - Linguagem principal
+- **Python 3.12** - Linguagem principal (versão obrigatória)
 - **Tkinter** - Interface gráfica
 - **OSMNX** - Manipulação de dados OSM
 - **NetworkX** - Análise de grafos

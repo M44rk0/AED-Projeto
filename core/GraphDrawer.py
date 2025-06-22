@@ -93,6 +93,10 @@ class GraphDrawer:
         for node, data in self.graph_manager.grafo.nodes(data=True):
             self.desenhar_marcador_origem_destino(draw, node, data, geo_to_canvas, origem, destino, supersample, zoom_level)
         
+        # Desenhar legenda de cores apenas quando cores_personalizadas estiver ativo
+        if cores_personalizadas:
+            self.desenhar_legenda_cores(draw, w, h, supersample, zoom_level)
+        
         # Finalizar imagem
         return self.finalizar_imagem_canvas(img, w, h)
 
@@ -217,8 +221,12 @@ class GraphDrawer:
         else:
             draw.line([(x0, y0), (x1, y1)], fill=cor, width=width)
         
+        # Verificar se deve mostrar distâncias (limite de 150 vértices)
+        num_vertices = len(self.graph_manager.grafo.nodes())
+        deve_mostrar_distancias = (mostrar_distancias or modo_edicao) and num_vertices <= 150
+        
         # Desenhar texto de distância/peso
-        if mostrar_distancias or modo_edicao:
+        if deve_mostrar_distancias:
             if self.graph_manager.eh_grafo_osm():
                 dist = self.graph_manager.calcular_distancia(
                     self.graph_manager.grafo.nodes[u]['y'], self.graph_manager.grafo.nodes[u]['x'],
@@ -291,3 +299,57 @@ class GraphDrawer:
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, anchor='nw', image=imgtk)
         return imgtk
+
+    def desenhar_legenda_cores(self, draw, w, h, supersample, zoom_level):
+        #Desenha a legenda de cores das ruas no canto inferior direito
+        if not self.graph_manager.eh_grafo_osm():
+            return  # Só mostrar legenda para grafos OSM
+        
+        # Configurar fonte para a legenda
+        try:
+            font_size = int(8 * supersample * min(zoom_level, 2.0))
+            font = ImageFont.truetype("arial.ttf", font_size)
+        except Exception:
+            font = ImageFont.load_default()
+        
+        # Posição da legenda (canto inferior direito)
+        margin = 20 * supersample
+        legend_x = w * supersample - margin
+        legend_y = h * supersample - margin
+        
+        # Configurações da legenda
+        line_height = 20 * supersample
+        line_width = 30 * supersample
+        text_margin = 10 * supersample
+        
+        # Cores das ruas
+        cores_ruas = [
+            ("#2196f3", "Mão Única"),
+            ("#ff9800", "Mão Dupla"),
+            ("#ff3333", "Rota Calculada")
+        ]
+        
+        # Desenhar fundo da legenda
+        legend_width = 150 * supersample
+        legend_height = len(cores_ruas) * line_height + 20 * supersample
+        bg_x = legend_x - legend_width
+        bg_y = legend_y - legend_height
+        
+        # Fundo semi-transparente
+        draw.rectangle([bg_x, bg_y, legend_x, legend_y], 
+                      fill=(42, 43, 46, 200), outline=(58, 59, 62, 255), width=2)
+        
+        # Desenhar cada item da legenda
+        for i, (cor, texto) in enumerate(cores_ruas):
+            y_pos = bg_y + 10 * supersample + i * line_height
+            
+            # Linha colorida
+            line_x = bg_x + 10 * supersample
+            line_y = y_pos + line_height // 2
+            draw.line([(line_x, line_y), (line_x + line_width, line_y)], 
+                     fill=cor, width=int(3 * supersample * min(zoom_level, 2.0)))
+            
+            # Texto
+            text_x = line_x + line_width + text_margin
+            text_y = y_pos + line_height // 2
+            draw.text((text_x, text_y), texto, fill="#ffffff", font=font, anchor="lm")

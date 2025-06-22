@@ -67,6 +67,12 @@ class UIManager:
         tem_grafo_valido = self.main_app.graph_manager.existe_grafo()
         tem_vertices = self.main_app.graph_manager.existe_grafo() and len(self.main_app.graph_manager.grafo.nodes) > 0
         
+        # Verificar limite de vértices para distâncias
+        pode_mostrar_distancias = False
+        if tem_grafo_valido and not grafo_osm:
+            num_vertices = len(self.main_app.graph_manager.grafo.nodes)
+            pode_mostrar_distancias = num_vertices <= 150
+        
         if self.main_app.modo_edicao:
             self.main_app.sidebar.configurar_estado_apagar_grafo(True)
             self.main_app.sidebar.habilitar_botoes_principais(False)
@@ -75,7 +81,7 @@ class UIManager:
             self.main_app.zoom_panel.ocultar()
             self.main_app.sidebar.configurar_estado_criar_grafo(not grafo_osm)
             self.main_app.sidebar.habilitar_botoes_edicao(True)
-            self.main_app.sidebar.configurar_estado_distancias(not grafo_osm and tem_grafo_valido)
+            self.main_app.sidebar.configurar_estado_distancias(pode_mostrar_distancias)
         else:
             if tem_grafo_valido:
                 self.main_app.sidebar.configurar_estado_apagar_grafo(tem_vertices)
@@ -83,7 +89,7 @@ class UIManager:
                 self.main_app.action_panel.habilitar_botoes(True)
                 self.main_app.zoom_panel.habilitar_botoes(True)
                 self.main_app.zoom_panel.mostrar()
-                self.main_app.sidebar.configurar_estado_distancias(not grafo_osm)
+                self.main_app.sidebar.configurar_estado_distancias(pode_mostrar_distancias)
             else:
                 self.main_app.sidebar.configurar_estado_apagar_grafo(False)
                 self.main_app.sidebar.habilitar_botoes_principais(False)

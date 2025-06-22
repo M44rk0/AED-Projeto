@@ -70,7 +70,7 @@ class Sidebar:
                                        command=self.main_app.toggle_distancias, **self.btn_style_normal)
         self.buttons['dist'].pack(fill=tk.X, pady=5, padx=10)
         
-        self.buttons['cores'] = tk.Button(self.frame, text="Identificar Ruas", 
+        self.buttons['cores'] = tk.Button(self.frame, text="Identificar Vias", 
                                         command=self.main_app.toggle_cores_ruas, **self.btn_style_normal)
         self.buttons['cores'].pack(fill=tk.X, pady=5, padx=10)
     

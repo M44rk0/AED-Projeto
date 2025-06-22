@@ -30,6 +30,8 @@ class GraphOperations:
                 self.main_app.graph_manager.criar_grafo_vazio()
             self.main_app.selection_manager.limpar_selecao()
             self.main_app.ui_manager.ocultar_botoes_centrais()
+            # Alterar highlightbackground do canvas para a cor do botão ativo
+            self.main_app.canvas.config(highlightbackground="#00ffcc")
         else:
             self.main_app.sidebar.configurar_botao_edicao(False)
             self.main_app.sidebar.ocultar_frame_edicao()
@@ -38,6 +40,8 @@ class GraphOperations:
             if not self.main_app.graph_manager.existe_grafo():
                 self.main_app.graph_manager.limpar_grafo()
                 self.main_app.zoom_pan_tool.reset_zoom_pan()
+            # Restaurar highlightbackground do canvas para a cor padrão
+            self.main_app.canvas.config(highlightbackground="#3a3b3e")
         self.main_app.ui_manager.atualizar_estado_botoes()
         self.main_app.view_manager.desenhar_grafo()
     
