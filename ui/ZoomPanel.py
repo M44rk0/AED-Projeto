@@ -50,8 +50,9 @@ class ZoomPanel:
     def habilitar_botoes(self, habilitar=True):
         #Habilita ou desabilita os botões de zoom
         estado = tk.NORMAL if habilitar else tk.DISABLED
+        cursor = "hand2" if habilitar else "arrow"
         for button in self.buttons.values():
-            button.config(state=estado)
+            button.config(state=estado, cursor=cursor)
     
     def atualizar_texto_zoom(self, zoom_percent):
         #Atualiza o texto do botão de reset

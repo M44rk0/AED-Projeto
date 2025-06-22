@@ -19,6 +19,10 @@ class ActionPanel:
             "pady": 8,
             "cursor": "hand2"
         }
+        self.btn_style_desabilitado = self.btn_style_normal.copy()
+        self.btn_style_desabilitado.update({
+            "cursor": "arrow"
+        })
         self.criar_action_panel()
     
     def criar_action_panel(self):
@@ -53,8 +57,9 @@ class ActionPanel:
     def habilitar_botoes(self, habilitar=True):
         #Habilita ou desabilita todos os botões do painel
         estado = tk.NORMAL if habilitar else tk.DISABLED
+        estilo = self.btn_style_normal if habilitar else self.btn_style_desabilitado
         for button in self.buttons.values():
-            button.config(state=estado)
+            button.config(state=estado, cursor=estilo["cursor"])
     
     def configurar_texto_pontos(self, mostrar=True):
         #Configura o texto do botão de pontos

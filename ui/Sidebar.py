@@ -26,6 +26,10 @@ class Sidebar:
             "activebackground": "#00ddaa",
             "activeforeground": "#1a1b1e"
         })
+        self.btn_style_desabilitado = self.btn_style_normal.copy()
+        self.btn_style_desabilitado.update({
+            "cursor": "arrow"
+        })
         self.criar_sidebar()
     
     def criar_sidebar(self):
@@ -92,37 +96,46 @@ class Sidebar:
     def habilitar_botoes_principais(self, habilitar=True):
         #Habilita ou desabilita os botões principais
         estado = tk.NORMAL if habilitar else tk.DISABLED
+        estilo = self.btn_style_normal if habilitar else self.btn_style_desabilitado
+        
         # O botão importar sempre deve ficar habilitado
-        self.buttons['importar'].config(state=tk.NORMAL)
-        self.buttons['copiar'].config(state=estado)
-        self.buttons['salvar'].config(state=estado)
-        self.buttons['dist'].config(state=estado)
-        self.buttons['cores'].config(state=estado)
+        self.buttons['importar'].config(state=tk.NORMAL, cursor="hand2")
+        self.buttons['copiar'].config(state=estado, cursor=estilo["cursor"])
+        self.buttons['salvar'].config(state=estado, cursor=estilo["cursor"])
+        self.buttons['dist'].config(state=estado, cursor=estilo["cursor"])
+        self.buttons['cores'].config(state=estado, cursor=estilo["cursor"])
     
     def habilitar_botoes_edicao(self, habilitar=True):
         #Habilita ou desabilita os botões de edição
         estado = tk.NORMAL if habilitar else tk.DISABLED
-        self.buttons['gerar_vertices'].config(state=estado)
+        estilo = self.btn_style_normal if habilitar else self.btn_style_desabilitado
+        
+        self.buttons['gerar_vertices'].config(state=estado, cursor=estilo["cursor"])
         
         # Botão de gerar arestas só fica habilitado se há pelo menos 2 vértices
         if habilitar and self.main_app.graph_manager.existe_grafo():
             tem_vertices_suficientes = len(self.main_app.graph_manager.grafo.nodes) >= 2
             estado_arestas = tk.NORMAL if tem_vertices_suficientes else tk.DISABLED
+            estilo_arestas = self.btn_style_normal if tem_vertices_suficientes else self.btn_style_desabilitado
         else:
             estado_arestas = estado
-        self.buttons['gerar_arestas'].config(state=estado_arestas)
+            estilo_arestas = estilo
+        self.buttons['gerar_arestas'].config(state=estado_arestas, cursor=estilo_arestas["cursor"])
     
     def configurar_estado_apagar_grafo(self, habilitar=True):
         #Configura o estado do botão apagar grafo
         estado = tk.NORMAL if habilitar else tk.DISABLED
-        self.buttons['apagar_grafo'].config(state=estado)
+        estilo = self.btn_style_normal if habilitar else self.btn_style_desabilitado
+        self.buttons['apagar_grafo'].config(state=estado, cursor=estilo["cursor"])
     
     def configurar_estado_criar_grafo(self, habilitar=True):
         #Configura o estado do botão criar grafo
         estado = tk.NORMAL if habilitar else tk.DISABLED
-        self.buttons['criar_grafo'].config(state=estado)
+        estilo = self.btn_style_normal if habilitar else self.btn_style_desabilitado
+        self.buttons['criar_grafo'].config(state=estado, cursor=estilo["cursor"])
     
     def configurar_estado_distancias(self, habilitar=True):
         #Configura o estado do botão de distâncias (mostrar pesos das arestas)
         estado = tk.NORMAL if habilitar else tk.DISABLED
-        self.buttons['dist'].config(state=estado)
+        estilo = self.btn_style_normal if habilitar else self.btn_style_desabilitado
+        self.buttons['dist'].config(state=estado, cursor=estilo["cursor"])

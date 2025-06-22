@@ -140,4 +140,5 @@ Thumbs.db
 
 # Project specific
 cache/
-*.log 
+*.log
+GUIA_GRUPO.md 

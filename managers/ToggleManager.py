@@ -15,7 +15,11 @@ class ToggleManager:
             num_vertices = len(self.main_app.graph_manager.grafo.nodes())
             if num_vertices > 150:
                 # Desabilitar o botão e mostrar mensagem
-                self.main_app.sidebar.buttons['dist'].config(state='disabled', text="Exibir Distâncias")
+                self.main_app.sidebar.buttons['dist'].config(
+                    state='disabled', 
+                    text="Exibir Distâncias",
+                    cursor="arrow"
+                )
                 self.main_app.mostrar_distancias = False
                 self.main_app.view_manager.desenhar_grafo()
                 return
