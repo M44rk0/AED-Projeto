@@ -5,12 +5,13 @@ class GraphOperations:
         self.main_app = main_app
     
     def importar_osm(self):
-        """Importa arquivo OSM"""
+        #Importa arquivo OSM
         caminho = filedialog.askopenfilename(filetypes=[("OSM files", "*.osm"), ("Todos arquivos", "*.*")])
         if caminho:
             resultado = self.main_app.graph_manager.importar_osm(caminho)
             if resultado is True:
                 self.main_app.selection_manager.limpar_selecao()
+                self.main_app.selection_manager.resetar_tooltips_ajuda()
                 self.main_app.zoom_pan_tool.reset_zoom_pan()
                 self.main_app.ui_manager.ocultar_botoes_centrais()
                 self.main_app.ui_manager.atualizar_estado_botoes()
@@ -19,7 +20,7 @@ class GraphOperations:
                 messagebox.showerror("Erro", resultado)
     
     def toggle_modo_edicao(self):
-        """Alterna modo de edição"""
+        #Alterna modo de edição
         self.main_app.modo_edicao = not self.main_app.modo_edicao
         if self.main_app.modo_edicao:
             self.main_app.sidebar.configurar_botao_edicao(True)
@@ -41,7 +42,7 @@ class GraphOperations:
         self.main_app.view_manager.desenhar_grafo()
     
     def gerar_vertices_aleatorios(self):
-        """Gera vértices aleatórios"""
+        #Gera vértices aleatórios
         quantidade = simpledialog.askinteger("Gerar Vértices", 
                                            "Quantos vértices deseja gerar?",
                                            minvalue=1, maxvalue=10000, initialvalue=10)
@@ -52,14 +53,14 @@ class GraphOperations:
             self.main_app.ui_manager.atualizar_estado_botoes()
     
     def gerar_arestas_aleatorias(self):
-        """Gera arestas aleatórias"""
+        #Gera arestas aleatórias
         if self.main_app.graph_manager.gerar_arestas_aleatorias():
             self.main_app.view_manager.desenhar_grafo()
         else:
             messagebox.showwarning("Aviso", "É necessário ter pelo menos 2 vértices para gerar arestas!")
     
     def apagar_grafo(self):
-        """Apaga o grafo atual"""
+        #Apaga o grafo atual
         self.main_app.graph_manager.limpar_grafo()
         self.main_app.selection_manager.limpar_selecao()
         self.main_app.zoom_pan_tool.reset_zoom_pan()
@@ -70,7 +71,7 @@ class GraphOperations:
         self.main_app.ui_manager.atualizar_estado_botoes()
     
     def calcular_rota(self):
-        """Calcula rota entre origem e destino"""
+        #Calcula rota entre origem e destino
         if not self.main_app.graph_manager.existe_grafo() or not self.main_app.selection_manager.origem or not self.main_app.selection_manager.destino:
             messagebox.showwarning("Aviso", "Selecione origem e destino!")
             return
@@ -80,6 +81,9 @@ class GraphOperations:
             self.main_app.selection_manager.definir_caminho(resultado['caminho'])
             self.main_app.action_panel.configurar_texto_pontos(False)
             self.main_app.view_manager.desenhar_grafo()
+            
+            # Marcar que os tooltips de ajuda já foram mostrados
+            self.main_app.selection_manager.marcar_tooltips_mostrados()
             
             info_rota = {
                 'origem': self.main_app.selection_manager.origem,

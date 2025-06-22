@@ -3,7 +3,7 @@ class ViewManager:
         self.main_app = main_app
     
     def desenhar_grafo(self):
-        """Desenha o grafo principal"""
+        #Desenha o grafo principal
         self.main_app.imgtk = self.main_app.graph_drawer.desenhar_canvas_vazio()
         
         if not self.main_app.graph_manager.existe_grafo():
@@ -40,7 +40,7 @@ class ViewManager:
             )
     
     def desenhar_grafo_com_zoom_fluido(self):
-        """Desenha o grafo usando a versão otimizada quando há zoom/pan ativo"""
+        #Desenha o grafo usando a versão otimizada quando há zoom/pan ativo
         self.main_app.imgtk = self.main_app.graph_drawer.desenhar_grafo_otimizado(
             zoom_level=self.main_app.zoom_pan_tool.zoom_level,
             pan_x=self.main_app.zoom_pan_tool.pan_x,
@@ -56,7 +56,7 @@ class ViewManager:
         )
     
     def zoom_in(self):
-        """Aumenta o zoom"""
+        #Aumenta o zoom
         if self.main_app.modo_edicao:
             return
         if self.main_app.zoom_pan_tool.zoom_in():
@@ -64,7 +64,7 @@ class ViewManager:
             self.desenhar_grafo_com_zoom_fluido()
     
     def zoom_out(self):
-        """Diminui o zoom"""
+        #Diminui o zoom
         if self.main_app.modo_edicao:
             return
         if self.main_app.zoom_pan_tool.zoom_out():
@@ -72,7 +72,7 @@ class ViewManager:
             self.desenhar_grafo_com_zoom_fluido()
     
     def zoom_reset(self):
-        """Reseta o zoom"""
+        #Reseta o zoom
         if self.main_app.modo_edicao:
             return
         self.main_app.zoom_pan_tool.reset_zoom_pan()
@@ -80,6 +80,6 @@ class ViewManager:
         self.desenhar_grafo()
     
     def atualizar_texto_zoom(self):
-        """Atualiza o texto do zoom"""
+        #Atualiza o texto do zoom
         zoom_percent = int(self.main_app.zoom_pan_tool.zoom_level * 100)
         self.main_app.zoom_panel.atualizar_texto_zoom(zoom_percent)

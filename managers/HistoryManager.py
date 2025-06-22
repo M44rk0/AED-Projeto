@@ -59,7 +59,7 @@ class HistoryManager:
                                      command=lambda info=info: self.refazer_rota_callback(info) if self.refazer_rota_callback else None)
                 btn_refazer.place(relx=1.0, rely=1.0, anchor='se', x=0, y=-8)
             elif info['tipo'] == 'captura':
-                tk.Label(inner, text=f"📷 Captura #{len(historico_completo)-i+1}  {info['datahora']}", 
+                tk.Label(inner, text=f"Captura {len(historico_completo)-i+1}.", 
                        bg="#262a2f", fg="#00ffcc", font=("Segoe UI", 11, "bold"), anchor="w").pack(fill=tk.X, padx=0, pady=(0,6))
                 btn_abrir = tk.Button(inner, text="📂", bg="#232428", fg="#00ffcc", 
                                     font=("Segoe UI", 13), bd=0, relief=tk.FLAT, cursor="hand2",

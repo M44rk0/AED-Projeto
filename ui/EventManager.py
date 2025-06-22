@@ -7,7 +7,7 @@ class EventManager:
         self.criar_bindings()
     
     def criar_bindings(self):
-        """Configura todos os bindings de eventos do canvas"""
+        #Configura todos os bindings de eventos do canvas
         self.canvas.bind("<Motion>", self.on_canvas_motion)
         self.canvas.bind("<Button-1>", self.on_canvas_click)
         self.canvas.bind("<Button-2>", self.on_canvas_click)
@@ -22,7 +22,7 @@ class EventManager:
         self.canvas.bind("<Leave>", self.hide_tooltip)
     
     def on_canvas_motion(self, event):
-        """Gerencia movimento do mouse no canvas"""
+        #Gerencia movimento do mouse no canvas
         if self.main_app.modo_edicao:
             # No modo de edição, sempre mostrar dicas contextuais
             if self.main_app.graph_manager.existe_grafo():
@@ -47,17 +47,29 @@ class EventManager:
                 self.main_app.tooltip_manager.show_tooltip('Clique para criar um vértice', event.x_root, event.y_root, True)
             return
         
+        # Quando não está no modo de edição (modo de navegação)
         if self.main_app.graph_manager.existe_grafo():
             closest_node = self.main_app.graph_drawer.encontrar_vertice_proximo(event.x, event.y)
             if closest_node:
+                # Se há um vértice próximo, mostrar informações do vértice
                 self.main_app.tooltip_manager.show_tooltip(f'Vértice: {closest_node}', event.x_root, event.y_root)
             else:
-                self.main_app.tooltip_manager.hide_tooltip()
+                # Se não há vértice próximo, mostrar dicas contextuais apenas se ainda não foram mostradas
+                if not self.main_app.selection_manager.tooltips_ajuda_mostrados:
+                    if not self.main_app.selection_manager.origem:
+                        self.main_app.tooltip_manager.show_tooltip('Selecione o vértice de início', event.x_root, event.y_root, True)
+                    elif not self.main_app.selection_manager.destino:
+                        self.main_app.tooltip_manager.show_tooltip('Selecione o vértice de destino', event.x_root, event.y_root, True)
+                    else:
+                        # Ambos origem e destino já foram selecionados
+                        self.main_app.tooltip_manager.show_tooltip('Clique no botão "Calcular Rota"', event.x_root, event.y_root, True)
+                else:
+                    self.main_app.tooltip_manager.hide_tooltip()
         else:
             self.main_app.tooltip_manager.hide_tooltip()
     
     def on_canvas_click(self, event):
-        """Gerencia cliques no canvas"""
+        #Gerencia cliques no canvas
         if self.main_app.zoom_pan_tool.panning:
             return
             
@@ -74,7 +86,7 @@ class EventManager:
             self._processar_clique_selecao(event)
     
     def _processar_clique_edicao(self, event):
-        """Processa cliques no modo de edição"""
+        #Processa cliques no modo de edição
         closest_node = self.main_app.graph_drawer.encontrar_vertice_proximo(event.x, event.y)
         if event.num == 1:  # Clique esquerdo
             if closest_node:
@@ -109,21 +121,21 @@ class EventManager:
         self.main_app.view_manager.desenhar_grafo()
     
     def _processar_clique_selecao(self, event):
-        """Processa cliques no modo de seleção"""
+        #Processa cliques no modo de seleção
         closest_node = self.main_app.graph_drawer.encontrar_vertice_proximo(event.x, event.y)
         if closest_node:
             self.main_app.selection_manager.alternar_selecao(closest_node)
             self.main_app.view_manager.desenhar_grafo()
     
     def on_pan_start(self, event):
-        """Inicia o pan"""
+        #Inicia o pan
         if self.main_app.modo_edicao or not self.main_app.graph_manager.existe_grafo():
             return
         cursor = self.main_app.zoom_pan_tool.on_pan_start(event)
         self.canvas.config(cursor=cursor)
     
     def on_pan_move(self, event):
-        """Move o pan"""
+        #Move o pan
         if self.main_app.modo_edicao or not self.main_app.graph_manager.existe_grafo():
             return
         w, h = self.main_app.graph_drawer.obter_dimensoes_canvas()
@@ -131,12 +143,12 @@ class EventManager:
             self.main_app.view_manager.desenhar_grafo_com_zoom_fluido()
     
     def on_pan_end(self, event):
-        """Finaliza o pan"""
+        #Finaliza o pan
         cursor = self.main_app.zoom_pan_tool.on_pan_end()
         self.canvas.config(cursor=cursor)
     
     def on_mousewheel_zoom(self, event):
-        """Gerencia zoom com scroll do mouse"""
+        #Gerencia zoom com scroll do mouse
         if self.main_app.modo_edicao or not self.main_app.graph_manager.existe_grafo():
             return
         w, h = self.main_app.graph_drawer.obter_dimensoes_canvas()
@@ -145,5 +157,5 @@ class EventManager:
             self.main_app.view_manager.desenhar_grafo_com_zoom_fluido()
     
     def hide_tooltip(self, event=None):
-        """Oculta o tooltip"""
+        #Oculta o tooltip
         self.main_app.tooltip_manager.hide_tooltip()

@@ -22,7 +22,7 @@ class ActionPanel:
         self.criar_action_panel()
     
     def criar_action_panel(self):
-        """Cria o painel de ações inferiores"""
+        #Cria o painel de ações inferiores
         self.frame = tk.Frame(self.parent, bg="#1a1b1e")
         self.frame.pack(fill=tk.X, side=tk.BOTTOM, pady=(10, 0))
         self.frame.grid_columnconfigure(0, weight=1)
@@ -51,12 +51,12 @@ class ActionPanel:
         self.buttons['pontos'].grid(row=0, column=2, sticky="nsew", padx=(5, 0))
     
     def habilitar_botoes(self, habilitar=True):
-        """Habilita ou desabilita todos os botões do painel"""
+        #Habilita ou desabilita todos os botões do painel
         estado = tk.NORMAL if habilitar else tk.DISABLED
         for button in self.buttons.values():
             button.config(state=estado)
     
     def configurar_texto_pontos(self, mostrar=True):
-        """Configura o texto do botão de pontos"""
+        #Configura o texto do botão de pontos
         texto = "Mostrar Vértices" if not mostrar else "Ocultar Vértices"
         self.buttons['pontos'].config(text=texto)

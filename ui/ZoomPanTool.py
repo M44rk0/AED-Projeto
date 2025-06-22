@@ -17,7 +17,7 @@ class ZoomPanTool:
         self.panning = False
     
     def tem_zoom_ativo(self, zoom_level, pan_x, pan_y):
-        """Verifica se há zoom ou pan ativo"""
+        #Verifica se há zoom ou pan ativo
         return zoom_level != 1.0 or pan_x != 0 or pan_y != 0
     
     def zoom_in(self):

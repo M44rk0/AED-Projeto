@@ -9,7 +9,7 @@ class ZoomPanel:
         self.criar_zoom_panel()
     
     def criar_zoom_panel(self):
-        """Cria o painel de zoom flutuante"""
+        #Cria o painel de zoom flutuante
         self.overlay = tk.Frame(self.canvas, bg=self.canvas['bg'], 
                               highlightthickness=1, highlightbackground="#3a3b3e",
                               bd=0, relief='flat')
@@ -40,19 +40,19 @@ class ZoomPanel:
         self.buttons['zoom_in'].pack(side=tk.LEFT, padx=(2, 0))
     
     def mostrar(self):
-        """Mostra o painel de zoom"""
+        #Mostra o painel de zoom
         self.overlay.place(relx=1.0, rely=0.0, anchor="ne", x=-20, y=20)
     
     def ocultar(self):
-        """Oculta o painel de zoom"""
+        #Oculta o painel de zoom
         self.overlay.place_forget()
     
     def habilitar_botoes(self, habilitar=True):
-        """Habilita ou desabilita os botões de zoom"""
+        #Habilita ou desabilita os botões de zoom
         estado = tk.NORMAL if habilitar else tk.DISABLED
         for button in self.buttons.values():
             button.config(state=estado)
     
     def atualizar_texto_zoom(self, zoom_percent):
-        """Atualiza o texto do botão de reset"""
+        #Atualiza o texto do botão de reset
         self.buttons['zoom_reset'].config(text=f"{zoom_percent}%")

@@ -5,7 +5,7 @@ class UIManager:
         self.main_app = main_app
     
     def mostrar_botoes_centrais(self):
-        """Mostra botões centrais quando não há grafo"""
+        #Mostra botões centrais quando não há grafo
         if self.main_app.graph_manager.existe_grafo() or self.main_app.modo_edicao:
             return
 
@@ -56,13 +56,13 @@ class UIManager:
         self.main_app.central_frame = central_frame
 
     def ocultar_botoes_centrais(self):
-        """Oculta os botões centrais"""
+        #Oculta os botões centrais
         if hasattr(self.main_app, 'central_frame'):
             self.main_app.central_frame.destroy()
             delattr(self.main_app, 'central_frame')
     
     def atualizar_estado_botoes(self):
-        """Atualiza o estado de todos os botões"""
+        #Atualiza o estado de todos os botões
         grafo_osm = self.main_app.graph_manager.eh_grafo_osm() if self.main_app.graph_manager.existe_grafo() else False
         tem_grafo_valido = self.main_app.graph_manager.existe_grafo()
         tem_vertices = self.main_app.graph_manager.existe_grafo() and len(self.main_app.graph_manager.grafo.nodes) > 0
@@ -74,7 +74,8 @@ class UIManager:
             self.main_app.zoom_panel.habilitar_botoes(False)
             self.main_app.zoom_panel.ocultar()
             self.main_app.sidebar.configurar_estado_criar_grafo(not grafo_osm)
-            self.main_app.sidebar.habilitar_botoes_edicao(not grafo_osm)
+            self.main_app.sidebar.habilitar_botoes_edicao(True)
+            self.main_app.sidebar.configurar_estado_distancias(not grafo_osm and tem_grafo_valido)
         else:
             if tem_grafo_valido:
                 self.main_app.sidebar.configurar_estado_apagar_grafo(tem_vertices)
@@ -82,11 +83,12 @@ class UIManager:
                 self.main_app.action_panel.habilitar_botoes(True)
                 self.main_app.zoom_panel.habilitar_botoes(True)
                 self.main_app.zoom_panel.mostrar()
+                self.main_app.sidebar.configurar_estado_distancias(not grafo_osm)
             else:
                 self.main_app.sidebar.configurar_estado_apagar_grafo(False)
                 self.main_app.sidebar.habilitar_botoes_principais(False)
                 self.main_app.action_panel.habilitar_botoes(False)
                 self.main_app.zoom_panel.habilitar_botoes(False)
                 self.main_app.zoom_panel.ocultar()
-            
+                self.main_app.sidebar.configurar_estado_distancias(False)
             self.main_app.sidebar.configurar_estado_criar_grafo(not grafo_osm)

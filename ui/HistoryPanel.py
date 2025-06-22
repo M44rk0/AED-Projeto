@@ -12,7 +12,7 @@ class HistoryPanel:
         self.criar_history_panel()
     
     def criar_history_panel(self):
-        """Cria o painel de histórico"""
+        #Cria o painel de histórico
         self.frame = tk.Frame(self.parent, bg="#232428", width=320)
         self.frame.pack(side=tk.LEFT, padx=(10,0), fill=tk.Y)
         self.frame.pack_propagate(False)
@@ -44,16 +44,16 @@ class HistoryPanel:
         self.canvas.bind('<Leave>', _unbind_mousewheel)
     
     def _on_mousewheel(self, event):
-        """Manipula o scroll do mouse"""
+        #Manipula o scroll do mouse
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
         return "break"
     
     def limpar_cards(self):
-        """Limpa todos os cards do histórico"""
+        #Limpa todos os cards do histórico
         for widget in self.cards_frame.winfo_children():
             widget.destroy()
     
     def atualizar_scrollregion(self):
-        """Atualiza a região de scroll"""
+        #Atualiza a região de scroll
         self.canvas.update_idletasks()
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))

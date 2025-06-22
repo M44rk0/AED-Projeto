@@ -11,11 +11,11 @@ class ImageManager:
         self.zoom_overlay = None
     
     def set_zoom_overlay(self, zoom_overlay):
-        """Define a referência para o overlay de zoom"""
+        #Define a referência para o overlay de zoom
         self.zoom_overlay = zoom_overlay
     
     def capturar_canvas(self):
-        """Captura a imagem do canvas"""
+        #Captura a imagem do canvas
         # Ocultar botões de zoom temporariamente
         zoom_visivel = self.zoom_overlay.winfo_viewable() if self.zoom_overlay else False
         if zoom_visivel:
@@ -37,7 +37,7 @@ class ImageManager:
         return img
     
     def copiar_imagem(self):
-        """Copia a imagem do canvas para a área de transferência"""
+        #Copia a imagem do canvas para a área de transferência
         try:
             img = self.capturar_canvas()
             
@@ -69,7 +69,7 @@ class ImageManager:
             messagebox.showerror("Erro", f"Erro ao capturar imagem:\n{str(e)}")
     
     def salvar_imagem(self):
-        """Salva a imagem do canvas em arquivo"""
+        #Salva a imagem do canvas em arquivo
         try:
             # Criar diretório de capturas se não existir
             if not os.path.exists(self.capturas_dir):

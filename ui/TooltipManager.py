@@ -9,7 +9,7 @@ class TooltipManager:
         self.tooltip_label.place_forget()
     
     def show_tooltip(self, text, x, y, is_contextual=False):
-        """Mostra um tooltip na posição especificada"""
+        #Mostra um tooltip na posição especificada
         canvas_x = self.canvas.winfo_pointerx() - self.canvas.winfo_rootx()
         canvas_y = self.canvas.winfo_pointery() - self.canvas.winfo_rooty()
         
@@ -37,5 +37,5 @@ class TooltipManager:
         self.tooltip_label.place(x=canvas_x+10, y=canvas_y+10)
     
     def hide_tooltip(self):
-        """Oculta o tooltip"""
+        #Oculta o tooltip
         self.tooltip_label.place_forget()

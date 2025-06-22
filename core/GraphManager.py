@@ -12,11 +12,11 @@ class GraphManager:
         self.reset_contador()
     
     def reset_contador(self):
-        """Reseta o contador de vértices para 1"""
+        #Reseta o contador de vértices para 1
         self.contador_vertices = 1
     
     def importar_osm(self, caminho):
-        """Importa um arquivo OSM e cria o grafo"""
+        #Importa um arquivo OSM e cria o grafo
         try:
             self.grafo = ox.graph_from_xml(caminho)
             return True
@@ -24,17 +24,17 @@ class GraphManager:
             return str(e)
     
     def criar_grafo_vazio(self):
-        """Cria um grafo vazio para modo de edição"""
+        #Cria um grafo vazio para modo de edição
         self.grafo = nx.Graph()
         self.bbox = (0, 0, 900, 650)
         return True
     
     def existe_grafo(self):
-        """Verifica se existe um grafo carregado"""
+        #Verifica se existe um grafo carregado
         return self.grafo is not None and len(self.grafo.nodes) > 0
     
     def eh_grafo_osm(self):
-        """Detecta se o grafo foi importado do OSM"""
+        #Detecta se o grafo foi importado do OSM
         if not self.existe_grafo():
             return False
             
@@ -50,7 +50,7 @@ class GraphManager:
         return False
     
     def obter_proximo_id_vertice(self):
-        """Obtém o próximo ID disponível para um vértice"""
+        #Obtém o próximo ID disponível para um vértice
         if not self.grafo or not self.grafo.nodes():
             return 1  # Começar do ID 1 em vez de 0
         
@@ -62,36 +62,36 @@ class GraphManager:
         return proximo_id
     
     def recalcular_contador(self):
-        """Recalcula o contador de vértices baseado nos IDs existentes"""
+        #Recalcula o contador de vértices baseado nos IDs existentes
         if self.grafo and self.grafo.nodes():
             self.contador_vertices = max(self.grafo.nodes()) + 1
         else:
             self.contador_vertices = 1
     
     def adicionar_vertice(self, x, y):
-        """Adiciona um vértice ao grafo"""
+        #Adiciona um vértice ao grafo
         novo_id = self.obter_proximo_id_vertice()
         self.grafo.add_node(novo_id, x=x, y=y)
         return novo_id
     
     def adicionar_aresta(self, u, v, peso):
-        """Adiciona uma aresta ao grafo"""
+        #Adiciona uma aresta ao grafo
         self.grafo.add_edge(u, v, weight=peso)
         return True
     
     def remover_vertice(self, node):
-        """Remove um vértice do grafo"""
+        #Remove um vértice do grafo
         self.grafo.remove_node(node)
         self.recalcular_contador()
         return True
     
     def remover_aresta(self, u, v):
-        """Remove uma aresta do grafo"""
+        #Remove uma aresta do grafo
         self.grafo.remove_edge(u, v)
         return True
     
     def gerar_vertices_aleatorios(self, quantidade):
-        """Gera vértices aleatórios no grafo"""
+        #Gera vértices aleatórios no grafo
         if not self.existe_grafo():
             self.criar_grafo_vazio()
             
@@ -103,7 +103,7 @@ class GraphManager:
         return True
     
     def gerar_arestas_aleatorias(self):
-        """Gera arestas aleatórias entre os vértices existentes"""
+        #Gera arestas aleatórias entre os vértices existentes
         if not self.existe_grafo() or len(self.grafo.nodes()) < 2:
             return False
             
@@ -136,7 +136,7 @@ class GraphManager:
         return True
     
     def calcular_distancia(self, lat1, lon1, lat2, lon2):
-        """Calcula a distância entre dois pontos geográficos usando a fórmula de Haversine"""
+        #Calcula a distância entre dois pontos geográficos usando a fórmula de Haversine
         R = 6371000  # Raio da Terra em metros
         lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
         dlat = lat2 - lat1
@@ -146,7 +146,7 @@ class GraphManager:
         return R * c
     
     def calcular_rota(self, origem, destino):
-        """Calcula a rota mais curta entre origem e destino usando Dijkstra"""
+        #Calcula a rota mais curta entre origem e destino usando Dijkstra
         if not self.existe_grafo():
             return None, "Grafo não existe!"
             
@@ -204,13 +204,13 @@ class GraphManager:
             return None, f"Erro inesperado ao calcular rota: {str(e)}"
     
     def limpar_grafo(self):
-        """Limpa o grafo e reseta todas as variáveis relacionadas"""
+        #Limpa o grafo e reseta todas as variáveis relacionadas
         self.grafo = None
         self.bbox = None
         self.reset_contador()
     
     def obter_bbox_osm(self):
-        """Obtém o bbox para grafos OSM"""
+        #Obtém o bbox para grafos OSM
         if not self.existe_grafo():
             return None
             
@@ -222,7 +222,7 @@ class GraphManager:
         return min_x, min_y, max_x, max_y
 
     def obter_bbox_manual(self):
-        """Obtém o bbox para grafos manuais"""
+        #Obtém o bbox para grafos manuais
         if not self.bbox:
             self.bbox = (0, 0, 900, 650)
         return self.bbox
