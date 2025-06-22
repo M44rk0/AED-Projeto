@@ -12,8 +12,8 @@ Aplicativo desktop para visualização e manipulação de grafos, com suporte a 
 ### Instalação
 ```bash
 # Clone o repositório
-git clone <url-do-repositorio>
-cd MapaAED
+git clone <https://github.com/M44rk0/AED-Projeto>
+cd AED-Projeto
 
 # Instale as dependências
 pip install -r requirements.txt
